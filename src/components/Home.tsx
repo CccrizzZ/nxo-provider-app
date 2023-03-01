@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/Home.css'
 import {
   Card,
@@ -48,7 +48,7 @@ const Home = (): JSX.Element => {
     <div style={homeStyle}>
       <div style={headerStyle}>
         <h1>Dashboard</h1>
-
+        
       </div>
       <div style={cardGroupStyle}>
         {dashboardCards('Patient Requests', 70, '#F54B71', 3)}

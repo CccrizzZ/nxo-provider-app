@@ -1,50 +1,113 @@
 import React from 'react'
 import {
-  Container,
   Row,
   Col,
-  Navbar
-} from 'react-bootstrap'
+  Button,
+  Layout, 
+  Space
+} from 'antd'
+import { 
+  HomeFilled, 
+  FileFilled, 
+  FileAddFilled, 
+  PlusCircleFilled,
+  CalendarFilled,
+  AppstoreFilled
+} from '@ant-design/icons'
 import Home from './components/Home'
-import { nxoColor } from './styles/nxo-styles'
-import logo_landscape from './assets/logo-landscape.png'
+import nxoStyle from './styles/nxo-styles'
+import logo from './assets/logo_landscape.png'
+const { Sider, Content } = Layout;
 
-const sideColumnStyle = {
+const nxoColor = {
+  color: nxoStyle.nxoColor
+}
+
+const contentStyle: React.CSSProperties = {
+  textAlign: 'center',
+}
+
+const siderStyle: React.CSSProperties = {
+  textAlign: 'left',
+  color: '#fff',
   backgroundColor: '#000',
-  color: nxoColor,
-  width: '15%',
-  minWidth: '288px'
+  height: '100vh',
+  padding: '20px',
+  float: 'left'
 }
 
-const contentColumnStyle = {
-  backgroundColor: '#292929',
-  color: 'fff',
-  width: '85%',
-  minWidth: '1632px'
+const buttonStyle: React.CSSProperties = {
+  backgroundColor: '#000',
+  textAlign: 'left',
+  width: '100%',
+  marginTop: '40px',
+  ...nxoColor
 }
 
-const containerStyle = {
-  // height: '100%',
-  // width: '100%'
+const siderFooterStyle: React.CSSProperties = {
+  position: 'absolute',
+  bottom: 0,
+  padding: '20px',
+  marginBottom: '20px',
+  ...nxoColor
 }
 
-const App = (): JSX.Element => {
+const buttonStyleInverted: React.CSSProperties = {
+  backgroundColor: nxoStyle.nxoColor,
+  color: '#000',
+  border: `0px, solid ${nxoStyle.nxoColor}`,
+}
+
+const borderedButtonStyle: React.CSSProperties = {
+  border: `1px solid ${nxoStyle.nxoColor}`,
+  ...buttonStyle
+}
+
+const borderlessButtonStyle: React.CSSProperties = {
+  border: '1px solid #000',
+  ...buttonStyle
+}
+
+
+const App: React.FC = () => {
   return (
-    <Container style={containerStyle}>
-      <Row style={{display: 'flex'}}>
-        <Col style={sideColumnStyle}>
-          <img src={logo_landscape} alt="logo" />
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error quisquam sapiente, voluptate, laboriosam sit tenetur vitae non excepturi recusandae, dolore sint impedit velit accusantium iusto nisi deserunt aliquam atque perferendis!
-        </Col>
-        <Col style={contentColumnStyle}>
-          {/* <Navbar expand="lg" variant="light" bg="light">
-
-          </Navbar> */}
-          <Home />
-        </Col>
-      </Row>
-    </Container>
+    <Space direction="vertical" style={{ width: '100%', height: '100%' }} size={[0, 48]}>
+      <Layout>
+        <Sider style={siderStyle} width="300">
+          <img style={{width: '80%', margin: 'auto'}} src={logo} alt="logo" />
+          <div style={{padding: '20px', textAlign: 'left'}}>
+            <Button style={buttonStyleInverted} shape="round" icon={<FileFilled />} size="large">
+              Send Request
+            </Button>
+            <Button style={borderedButtonStyle} shape="round" icon={<PlusCircleFilled />} size="large">
+              Request Record
+            </Button>
+            <Button style={borderlessButtonStyle} shape="round" icon={<HomeFilled />} size="large">
+              Home
+            </Button>
+            <Button style={borderlessButtonStyle} shape="round" icon={<FileAddFilled />} size="large">
+              Share History
+            </Button>
+            <Button style={borderlessButtonStyle} shape="round" icon={<CalendarFilled />} size="large">
+              Calendar
+            </Button>
+            <Button style={borderlessButtonStyle} shape="round" icon={<AppstoreFilled />} size="large">
+              Integrations
+            </Button>
+          </div>
+          <div style={siderFooterStyle}>
+            <hr style={{borderTop: `1px solid ${nxoStyle.nxoColor}`}} />
+            <a style={nxoColor} href=".">Terms and Conditions</a>
+          </div>
+        </Sider>
+        <Layout>
+          <Content style={contentStyle}>
+            <Home />
+          </Content>
+        </Layout>
+      </Layout>
+    </Space>
   )
 }
-
+;
 export default App

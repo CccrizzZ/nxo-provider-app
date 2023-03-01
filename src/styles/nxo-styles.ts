@@ -1,22 +1,10 @@
 // nxo blue color
 const nxoColor = '#4EE5EA'
-const buttonStyle = {
-  color: '#000',
-  backgroundColor: nxoColor
-}
+const darkColor = '#292929'
 
-const buttonStyleInverted = {
-  color: nxoColor,
-  backgroundColor: '#FFFFFF'
-}
-
-const borderlessButtonStyle = {
-
-}
-
-export {
+const nxoStyle = {
   nxoColor,
-  buttonStyle,
-  buttonStyleInverted,
-  borderlessButtonStyle
+  darkColor
 }
+
+export default nxoStyle
