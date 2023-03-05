@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import '../styles/Home.css'
-import {
-  Card,
-  Badge
-} from 'react-bootstrap'
+import { 
+  Badge, 
+  Space, 
+  Switch, 
+  Card
+} from 'antd';
 
 const homeStyle = {
   backgroundColor: '#292929',
@@ -22,25 +24,38 @@ const cardGroupStyle = {
   borderRadius: '2em',
   margin: 'auto',
   width: '80%',
-  display: 'flex'
+  padding: '20px'
 }
 
 const Home = (): JSX.Element => {
   const dashboardCards = (title: string, value: number, valColor: string, newValue?: number): JSX.Element => {
     return (
-      <Card style={{ 
+      <div style={{ 
         width: '18rem', 
         color: '#fff',
         backgroundColor: '#292929',
         borderRadius: '1em',
-        margin: 'auto'
+        border: 'none',
+        padding: '0',
+        margin: '5px'
       }}>
-        <h5>{title}</h5>
-        <div style={{ width: '60%', height: '80%' }}>
-          <h1 style={{ color: valColor, fontWeight: 'bold' }}>{value}</h1>
-          {newValue === undefined ? null : <Badge style={{backgroundColor: valColor}}>{newValue}</Badge> }
+        <h1>{title}</h1>
+        <div style={{ width: '60%', height: '80%', margin: 'auto'}}>
+          <h1 style={{ 
+            color: valColor, 
+            fontWeight: 'bold', 
+            fontSize: '50px', 
+            margin: 'auto',
+            display: 'inline-block'
+          }}>{value}</h1>
+          {newValue === undefined ? null : <Badge style={{
+            boxShadow: 'none', 
+            position: 'sticky',
+            marginLeft: '20px',
+            marginBottom: '20px',
+          }} color={valColor} count={'New ' + newValue}/>}
         </div>
-      </Card>
+      </div>
     )
   }
 
@@ -51,10 +66,12 @@ const Home = (): JSX.Element => {
         
       </div>
       <div style={cardGroupStyle}>
-        {dashboardCards('Patient Requests', 70, '#F54B71', 3)}
-        {dashboardCards('Records Received', 35, '#F8A24F', 2)}
-        {dashboardCards('Your Requests', 15, '#3286F0')}
-        {dashboardCards('Records Delivered', 50, '#33A84F')}
+        <div style={{margin: 'auto', width: '80%', display: 'flex'}}>
+          {dashboardCards('Patient Requests', 70, '#F54B71', 3)}
+          {dashboardCards('Records Received', 35, '#F8A24F', 2)}
+          {dashboardCards('Your Requests', 15, '#3286F0')}
+          {dashboardCards('Records Delivered', 50, '#33A84F')}
+        </div>
       </div>
     </div>
   )

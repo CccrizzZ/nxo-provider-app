@@ -19,6 +19,19 @@ import nxoStyle from './styles/nxo-styles'
 import logo from './assets/logo_landscape.png'
 const { Sider, Content } = Layout;
 
+
+// Font set to default
+// Secondary Font:Archivo
+// Roboto 
+
+// Color codes:
+// #69E4EA (Light Neon)
+// #000000 (Black)
+// #FFFFFF (White)
+// #43ADB2 (Dark Neon)
+
+
+
 const nxoColor = {
   color: nxoStyle.nxoColor
 }
