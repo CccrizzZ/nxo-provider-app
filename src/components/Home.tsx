@@ -2,20 +2,19 @@ import React, { useState } from 'react'
 import '../styles/Home.css'
 import { 
   Badge,
-  Card,
   Tabs,
-  Col, 
-  Row,
-  Checkbox
-} from 'antd';
-import type { TabsProps } from 'antd';
-import PatientRequest from '../Types/PatientRequest';
-import nxoStyle from '../styles/nxo-styles';
+} from 'antd'
+import type { TabsProps } from 'antd'
+import PatientRequest from '../Types/PatientRequest'
+import PatientRequests from './PatientRequests'
+import nxoStyle from '../styles/nxo-styles'
 
 const homeStyle: React.CSSProperties = {
   backgroundColor: '#292929',
   color: '#FFFFFF',
-  height: '100vh'
+  height: '100vh',
+  overflowY: 'scroll',
+  paddingBottom: '20px'
 }
 
 const headerStyle: React.CSSProperties = {
@@ -38,7 +37,7 @@ const recordBoxStyle: React.CSSProperties = {
   margin: 'auto',
   width: '80%',
   padding: '20px',
-  marginTop: '50px'
+  marginTop: '20px',
 }
 
 const navBarStyle: React.CSSProperties = {
@@ -49,65 +48,177 @@ const navBarStyle: React.CSSProperties = {
 
 const mockPatientRequestArray: PatientRequest[] = [
   {
-    date: 'mm/dd/yyyy',
+    date: '03/03/2023',
     patientId: '1',
-    patientName: 'John Doe',
-    recordType: 'Medical',
-    priority: 'urgent',
+    patientName: 'Brodie Garrett',
+    recordType: 'labResult',
+    priority: 'low',
+    status: 'rejected'
+  },
+  {
+    date: '03/02/2023',
+    patientId: '2',
+    patientName: 'Riley Bradshaw',
+    recordType: 'patientProfile',
+    priority: 'low',
+    status: 'rejected'
+  },
+  {
+    date: '03/01/2023',
+    patientId: '3',
+    patientName: 'Grace Moyer',
+    recordType: 'patientProfile',
+    priority: 'emergency',
+    status: 'complete'
+  },
+  {
+    date: '02/28/2023',
+    patientId: '4',
+    patientName: 'Kimberley Evans',
+    recordType: 'patientProfile',
+    priority: 'emergency',
     status: 'pending'
   },
   {
-    date: 'mm/dd/yyyy',
-    patientId: '1',
-    patientName: 'John Doe',
-    recordType: 'Medical',
-    priority: 'urgent',
+    date: '02/27/2023',
+    patientId: '5',
+    patientName: 'Zoe Wilson',
+    recordType: 'patientProfile',
+    priority: 'medium',
+    status: 'complete'
+  },
+  {
+    date: '02/26/2023',
+    patientId: '6',
+    patientName: 'Alexis Mclaughlin',
+    recordType: 'labResult',
+    priority: 'low',
     status: 'pending'
   },
   {
-    date: 'mm/dd/yyyy',
-    patientId: '1',
-    patientName: 'John Doe',
-    recordType: 'Medical',
-    priority: 'urgent',
+    date: '02/25/2023',
+    patientId: '7',
+    patientName: 'Marilyn Stuart',
+    recordType: 'doctorsNote',
+    priority: 'medium',
     status: 'pending'
   },
   {
-    date: 'mm/dd/yyyy',
-    patientId: '1',
-    patientName: 'John Doe',
-    recordType: 'Medical',
-    priority: 'urgent',
+    date: '02/24/2023',
+    patientId: '8',
+    patientName: 'Jeffrey Sutherland',
+    recordType: 'labResult',
+    priority: 'low',
     status: 'pending'
   },
   {
-    date: 'mm/dd/yyyy',
-    patientId: '1',
-    patientName: 'John Doe',
-    recordType: 'Medical',
-    priority: 'urgent',
+    date: '02/23/2023',
+    patientId: '9',
+    patientName: 'Asiya Johnson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
     status: 'pending'
   },
   {
-    date: 'mm/dd/yyyy',
-    patientId: '1',
-    patientName: 'John Doe',
-    recordType: 'Medical',
-    priority: 'urgent',
+    date: '02/22/2023',
+    patientId: '10',
+    patientName: 'Simon Greene',
+    recordType: 'doctorsNote',
+    priority: 'medium',
     status: 'pending'
   },
   {
-    date: 'mm/dd/yyyy',
-    patientId: '1',
-    patientName: 'John Doe',
-    recordType: 'Medical',
-    priority: 'urgent',
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
+    status: 'pending'
+  },
+  {
+    date: '02/21/2023',
+    patientId: '11',
+    patientName: 'Aleena Davidson',
+    recordType: 'doctorsNote',
+    priority: 'medium',
     status: 'pending'
   },
 ]
 
-const Home = (): JSX.Element => {
-  const [patientsRequestsArr, setPatientRequestsArr] = useState<PatientRequest[]>(mockPatientRequestArray)
+const Home: React.FC = (): JSX.Element => {
+  const [patientsRequestsArr] = useState<PatientRequest[]>(mockPatientRequestArray)
 
   const onChangeTab = (): void => {
 
@@ -136,86 +247,8 @@ const Home = (): JSX.Element => {
           {newValue === undefined ? null : <Badge style={{
             boxShadow: 'none', 
             position: 'sticky',
-            marginLeft: '20px',
             marginBottom: '20px',
           }} color={valColor} count={'New ' + newValue}/>}
-        </div>
-      </div>
-    )
-  }
-
-  const renderPatientRequest = () => {
-    const colStyle: React.CSSProperties = {
-      alignSelf: 'center',
-    }
-    const renderSingleRequest = () => {
-      return (
-        <Row style={{
-          backgroundColor: '#292929',
-          margin: '10px',
-          borderRadius: '2em',
-          height: '40px',
-        }}>
-          <Col span={2} style={colStyle}>
-            <Checkbox onChange={()=>{}}/>
-          </Col>
-          <Col span={4} style={colStyle}>
-              Date 
-          </Col>
-          <Col span={4} style={colStyle}>
-            Patient Name 
-          </Col>
-          <Col span={4} style={colStyle}>
-            Record Type
-          </Col>
-          <Col span={4} style={colStyle}>
-            Priority
-          </Col>
-          <Col span={4} style={colStyle}>
-            Status
-          </Col>
-        </Row>
-      )
-    }
-
-    return (
-      <div>
-        <div>
-          <Row style={{
-            backgroundColor: '#000',
-            color: '#fff',
-            margin: '10px',
-            height: '40px',
-            textAlign: 'center',
-            fontWeight: 'bold',
-          }}>
-            <Col span={2} style={colStyle}>
-              <Checkbox onChange={()=>{}}/>
-            </Col>
-            <Col span={4} style={colStyle}>
-              Date 
-            </Col>
-            <Col span={4} style={colStyle}>
-              Patient Name 
-            </Col>
-            <Col span={4} style={colStyle}>
-              Record Type
-            </Col>
-            <Col span={4} style={colStyle}>
-              Priority
-            </Col>
-            <Col span={4} style={colStyle}>
-              Status
-            </Col>
-          </Row>
-        </div>
-        <div>
-          {renderSingleRequest()}
-          {renderSingleRequest()}
-          {renderSingleRequest()}
-          {renderSingleRequest()}
-          {renderSingleRequest()}
-          
         </div>
       </div>
     )
@@ -225,7 +258,7 @@ const Home = (): JSX.Element => {
     {
       key: '1',
       label: `Patients Requests`,
-      children: renderPatientRequest(),
+      children: <PatientRequests requestArr={patientsRequestsArr} />,
     },
     {
       key: '2',
@@ -240,10 +273,10 @@ const Home = (): JSX.Element => {
   ];
 
   return (
-    <div style={homeStyle}>
+    <div className='home' style={homeStyle}>
       <div style={navBarStyle}></div>
       <div style={headerStyle}>
-        <h1 style={{fontSize:'32px'}}>Dashboard</h1>
+        <h1 style={{fontSize:'32px'}}>Home</h1>
       </div>
       <div style={cardGroupStyle}>
         <div style={{margin: 'auto', width: '80%', display: 'flex'}}>
