@@ -1,7 +1,5 @@
 import React from 'react'
 import {
-  Row,
-  Col,
   Button,
   Layout, 
   Space
@@ -17,23 +15,11 @@ import {
 import Home from './components/Home'
 import nxoStyle from './styles/nxo-styles'
 import logo from './assets/logo_landscape.png'
+import './App.css'
 const { Sider, Content } = Layout;
 
-
-// Font set to default
-// Secondary Font:Archivo
-// Roboto 
-
-// Color codes:
-// #69E4EA (Light Neon)
-// #000000 (Black)
-// #FFFFFF (White)
-// #43ADB2 (Dark Neon)
-
-
-
 const nxoColor = {
-  color: nxoStyle.nxoColor
+  color: nxoStyle.LightNxoColor
 }
 
 const contentStyle: React.CSSProperties = {
@@ -49,14 +35,6 @@ const siderStyle: React.CSSProperties = {
   float: 'left'
 }
 
-const buttonStyle: React.CSSProperties = {
-  backgroundColor: '#000',
-  textAlign: 'left',
-  width: '100%',
-  marginTop: '40px',
-  ...nxoColor
-}
-
 const siderFooterStyle: React.CSSProperties = {
   position: 'absolute',
   bottom: 0,
@@ -65,29 +43,45 @@ const siderFooterStyle: React.CSSProperties = {
   ...nxoColor
 }
 
+const buttonStyle: React.CSSProperties = {
+  backgroundColor: '#000',
+  textAlign: 'left',
+  width: '100%',
+  marginTop: '40px',
+  fontSize: '18px',
+  fontWeight: 'bold',
+  ...nxoColor
+}
+
 const buttonStyleInverted: React.CSSProperties = {
-  backgroundColor: nxoStyle.nxoColor,
+  backgroundColor: nxoStyle.LightNxoColor,
   color: '#000',
-  border: `0px, solid ${nxoStyle.nxoColor}`,
+  border: 'none',
+  width: '100%',
+  fontSize: '18px',
+  fontWeight: 'bold',
+  boxShadow: `0 3px 10px 1px ${nxoStyle.LightNxoColor}`,
 }
 
 const borderedButtonStyle: React.CSSProperties = {
-  border: `1px solid ${nxoStyle.nxoColor}`,
-  ...buttonStyle
+  border: `1px solid ${nxoStyle.LightNxoColor}`,
+  boxShadow: `0 3px 10px 1px ${nxoStyle.LightNxoColor}`,
+  ...buttonStyle,
+  textAlign: 'center',
 }
 
 const borderlessButtonStyle: React.CSSProperties = {
-  border: '1px solid #000',
+  border: 'none',
+  borderRadius: '1em',
   ...buttonStyle
 }
-
 
 const App: React.FC = () => {
   return (
     <Space direction="vertical" style={{ width: '100%', height: '100%' }} size={[0, 48]}>
       <Layout>
         <Sider style={siderStyle} width="300">
-          <img style={{width: '80%', margin: 'auto'}} src={logo} alt="logo" />
+          <img style={{width: '80%', margin: 'auto', marginBottom: '40px'}} src={logo} alt="logo" />
           <div style={{padding: '20px', textAlign: 'left'}}>
             <Button style={buttonStyleInverted} shape="round" icon={<FileFilled />} size="large">
               Send Request
@@ -109,7 +103,7 @@ const App: React.FC = () => {
             </Button>
           </div>
           <div style={siderFooterStyle}>
-            <hr style={{borderTop: `1px solid ${nxoStyle.nxoColor}`}} />
+            <hr style={{borderTop: `1px solid ${nxoStyle.LightNxoColor}`}} />
             <a style={nxoColor} href=".">Terms and Conditions</a>
           </div>
         </Sider>
@@ -122,5 +116,4 @@ const App: React.FC = () => {
     </Space>
   )
 }
-;
 export default App
