@@ -21,21 +21,20 @@ type patientRequestProps = {
 }
 
 const PatientRequests: React.FC<patientRequestProps> = ({requestArr}) => {
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(5)
   const [currentPage, setCurrentPage] = useState<number>(0)
   const [totalPage, setTotalPage] = useState<number>(Math.ceil(requestArr.length / itemsPerPage))
   const [checkAll, setCheckAll] = useState<boolean>(false);
-  const [slicedArr] = useState<Array<PatientRequest[]>>()
   
-  useEffect(() => {
-    
-  })
+  const getRequest = (start: number, end: number): JSX.Element => {
+    const arr = requestArr.slice(start, end);
 
-  const sliceDataIntoArr = () => {
-    for (let i = 0; i < totalPage; i++) {
-      // slicedArr.push(requestArr.slice(i * itemsPerPage, itemsPerPage))
-      console.log(slicedArr)
-    }
+    return (
+      <>
+        {arr.map((item, index) => renderSingleRequest(item, index))}
+      </>
+    )
+
   }
 
   const colStyle: React.CSSProperties = {
@@ -48,7 +47,7 @@ const PatientRequests: React.FC<patientRequestProps> = ({requestArr}) => {
 
   const pageButtonStyle: React.CSSProperties = {
     backgroundColor: nxoStyle.darkColor,
-    color: nxoStyle.LightNxoColor,
+    color: '#fff',
     border: '1px solid black'
   }
 
@@ -108,35 +107,37 @@ const PatientRequests: React.FC<patientRequestProps> = ({requestArr}) => {
         <Col span={2} style={colStyle}>
           <Checkbox onChange={()=>{}}/>
         </Col>
-        <Col span={4} style={colStyle}>
+        <Col span={3} style={colStyle}>
+          {request.patientId}
+        </Col>
+        <Col span={3} style={colStyle}>
           {request.date}
         </Col>
-        <Col span={4} style={colStyle}>
+        <Col span={5} style={colStyle}>
           <UserOutlined />
           {' ' + request.patientName}
         </Col>
         <Col span={4} style={colStyle}>
           {renderRecordType(request.recordType)}
         </Col>
-        <Col span={4} style={colStyle}>
+        <Col span={3} style={colStyle}>
           {renderPriorityTag(request.priority)}
         </Col>
-        <Col span={4} style={colStyle}>
+        <Col span={3} style={colStyle}>
           {renderStatusTag(request.status)}
         </Col>
       </Row>
     )
-  }
-
-  const renderPage = () => {
-    const arr = requestArr.slice(currentPage * itemsPerPage, itemsPerPage)
-    return arr.map((item, key) => renderSingleRequest(item, key))
   }
   
   const onChangeItemsPerPage = (value: number) => {
     setItemsPerPage(Number(value))
     setTotalPage(Math.ceil(requestArr.length / value))
     setCurrentPage(0)
+  }
+
+  const getCurrentItem = (): number => {
+    return currentPage * itemsPerPage
   }
 
   return (
@@ -148,18 +149,18 @@ const PatientRequests: React.FC<patientRequestProps> = ({requestArr}) => {
         textAlign: 'center',
       }}>
         <Col span={4} style={colStyle}>
-          Showing {currentPage * itemsPerPage + 1} / {currentPage + 1 === totalPage ? requestArr.length : (currentPage * itemsPerPage) + itemsPerPage} of {requestArr.length}
+          Showing {getCurrentItem() + 1} / {currentPage + 1 === totalPage ? requestArr.length : (getCurrentItem()) + itemsPerPage} of {requestArr.length}
         </Col>
         <Col span={16} style={colStyle}>
           <Button style={pageButtonStyle} shape="round" icon={<LeftOutlined />} size="middle" onClick={prevPage} />
-          {` ${currentPage + 1} `}
+          {` ${currentPage + 1} / ${totalPage} `}
           <Button style={pageButtonStyle} shape="round" icon={<RightOutlined />} size="middle" onClick={nextPage} />
         </Col>
         <Col span={4} style={colStyle}>
           Items Per Page
           <Select
             style={{marginLeft: '10px'}}
-            defaultValue={10}
+            defaultValue={5}
             onChange={onChangeItemsPerPage}
             options={[
               { value: '5', label: '5' },
@@ -181,24 +182,27 @@ const PatientRequests: React.FC<patientRequestProps> = ({requestArr}) => {
         <Col span={2} style={colStyle}>
           <Checkbox onChange={()=>{}}/>
         </Col>
-        <Col span={4} style={colStyle}>
+        <Col span={3} style={colStyle}>
+          ID
+        </Col>
+        <Col span={3} style={colStyle}>
           Date 
         </Col>
-        <Col span={4} style={colStyle}>
+        <Col span={5} style={colStyle}>
           Patient Name 
         </Col>
         <Col span={4} style={colStyle}>
           Record Type
         </Col>
-        <Col span={4} style={colStyle}>
+        <Col span={3} style={colStyle}>
           Priority
         </Col>
-        <Col span={4} style={colStyle}>
+        <Col span={3} style={colStyle}>
           Status
         </Col>
       </Row>
       <div>
-        {renderPage()}
+        {getRequest(getCurrentItem(), currentPage + 1 === totalPage ? requestArr.length : (getCurrentItem()) + itemsPerPage)}
       </div>
       <div>
       </div>

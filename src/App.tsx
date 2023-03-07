@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Button,
   Layout, 
@@ -14,9 +14,12 @@ import {
 } from '@ant-design/icons'
 import Home from './components/Home'
 import nxoStyle from './styles/nxo-styles'
-import logo from './assets/logo_landscape.png'
 import './App.css'
+import logo from './assets/logo_landscape.png'
+import logo_splash from './assets/logo_splash.png'
 const { Sider, Content } = Layout;
+
+type FadeProp = { fade: 'fade-in' | 'fade-out' }
 
 const nxoColor = {
   color: nxoStyle.LightNxoColor
@@ -40,6 +43,7 @@ const siderFooterStyle: React.CSSProperties = {
   bottom: 0,
   padding: '20px',
   marginBottom: '20px',
+  width: '100%',
   ...nxoColor
 }
 
@@ -77,9 +81,37 @@ const borderlessButtonStyle: React.CSSProperties = {
 }
 
 const App: React.FC = () => {
+  const [showSplash, setShowSplash] = useState<string>('block')
+  const [fadeProp, setFadeProp] = useState<FadeProp>({ fade: 'fade-in' })
+
+  useEffect(() => {
+    const fadeTimeout = setInterval(() => {
+      setFadeProp({ fade: 'fade-out' })
+      setInterval(() => setShowSplash('none'), 500)
+    }, 1000)
+
+    return () => {
+      clearInterval(fadeTimeout)
+    }
+  }, [fadeProp])
+
   return (
     <Space direction="vertical" style={{ width: '100%', height: '100%' }} size={[0, 48]}>
       <Layout>
+      <div 
+      className={fadeProp.fade}
+      style={{
+        width: '100vw',
+        height: '100vh',
+        position: 'absolute',
+        backgroundColor: '#000',
+        zIndex: '10000',
+        overflow: 'hidden',
+        margin: 'auto',
+        display: showSplash
+      }}>
+        <img style={{ margin:'auto', display: 'flex', marginTop: '20vh'}} src={logo_splash} alt="SplashScreen"></img>
+      </div>
         <Sider style={siderStyle} width="300">
           <img style={{width: '80%', margin: 'auto', marginBottom: '40px'}} src={logo} alt="logo" />
           <div style={{padding: '20px', textAlign: 'left'}}>
@@ -103,7 +135,7 @@ const App: React.FC = () => {
             </Button>
           </div>
           <div style={siderFooterStyle}>
-            <hr style={{borderTop: `1px solid ${nxoStyle.LightNxoColor}`}} />
+            <hr style={{border: `0.1px solid ${nxoStyle.LightNxoColor}`, width: '80%', marginLeft: '0'}} />
             <a style={nxoColor} href=".">Terms and Conditions</a>
           </div>
         </Sider>

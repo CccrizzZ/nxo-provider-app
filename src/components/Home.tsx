@@ -3,18 +3,22 @@ import '../styles/Home.css'
 import { 
   Badge,
   Tabs,
+  Input,
+  Button
 } from 'antd'
 import type { TabsProps } from 'antd'
+import { UserOutlined, SettingFilled, QuestionCircleFilled } from '@ant-design/icons'
 import PatientRequest from '../Types/PatientRequest'
 import PatientRequests from './PatientRequests'
 import nxoStyle from '../styles/nxo-styles'
+const { Search } = Input
 
 const homeStyle: React.CSSProperties = {
   backgroundColor: '#292929',
   color: '#FFFFFF',
   height: '100vh',
   overflowY: 'scroll',
-  paddingBottom: '20px'
+  paddingBottom: '40px'
 }
 
 const headerStyle: React.CSSProperties = {
@@ -43,7 +47,8 @@ const recordBoxStyle: React.CSSProperties = {
 const navBarStyle: React.CSSProperties = {
   width: '100%',
   backgroundColor: '#000',
-  color: nxoStyle.nxoColor
+  color: nxoStyle.nxoColor,
+  padding: '20px',
 }
 
 const mockPatientRequestArray: PatientRequest[] = [
@@ -213,7 +218,7 @@ const mockPatientRequestArray: PatientRequest[] = [
     patientName: 'Aleena Davidson',
     recordType: 'doctorsNote',
     priority: 'medium',
-    status: 'pending'
+    status: 'rejected'
   },
 ]
 
@@ -221,7 +226,6 @@ const Home: React.FC = (): JSX.Element => {
   const [patientsRequestsArr] = useState<PatientRequest[]>(mockPatientRequestArray)
 
   const onChangeTab = (): void => {
-
   }
 
   const dashboardCards = (title: string, value: number, valColor: string, newValue?: number): JSX.Element => {
@@ -272,9 +276,55 @@ const Home: React.FC = (): JSX.Element => {
     },
   ];
 
+  const onSearch = (value: string) => alert(value);
+
   return (
     <div className='home' style={homeStyle}>
-      <div style={navBarStyle}></div>
+      <div style={navBarStyle}>
+        <Search placeholder="Search..." allowClear onSearch={onSearch} style={{ width: 400 }} size="large" />
+        <Button 
+          type="primary" 
+          shape="circle" 
+          style={{ 
+            backgroundColor: nxoStyle.nxoColor, 
+            color: '#000', 
+            right: '0',
+            margin: 'auto',
+            position: 'absolute',
+            left: '85%'
+          }} 
+          icon={<QuestionCircleFilled />} 
+          size="large" 
+        />
+        <Button 
+          type="primary" 
+          shape="circle" 
+          style={{ 
+            backgroundColor: nxoStyle.nxoColor, 
+            color: '#000', 
+            right: '0',
+            margin: 'auto',
+            position: 'absolute',
+            left: '90%'
+          }} 
+          icon={<SettingFilled />} 
+          size="large" 
+        />
+        <Button 
+          type="primary" 
+          shape="circle" 
+          style={{ 
+            backgroundColor: nxoStyle.nxoColor, 
+            color: '#000', 
+            right: '0',
+            margin: 'auto',
+            position: 'absolute',
+            left: '95%'
+          }} 
+          icon={<UserOutlined />} 
+          size="large" 
+        />
+      </div>
       <div style={headerStyle}>
         <h1 style={{fontSize:'32px'}}>Home</h1>
       </div>
