@@ -13,6 +13,7 @@ import {
   AppstoreFilled
 } from '@ant-design/icons'
 import Home from './components/Home'
+import RequestRecord from './components/RequestRecord'
 import nxoStyle from './styles/nxo-styles'
 import './App.css'
 import logo from './assets/logo_landscape.png'
@@ -83,6 +84,7 @@ const borderlessButtonStyle: React.CSSProperties = {
 const App: React.FC = () => {
   const [showSplash, setShowSplash] = useState<string>('block')
   const [fadeProp, setFadeProp] = useState<FadeProp>({ fade: 'fade-in' })
+  const [showRequestRecordPopup, setShowRequestRecordPopup] = useState(false)
 
   useEffect(() => {
     const fadeTimeout = setInterval(() => {
@@ -98,18 +100,20 @@ const App: React.FC = () => {
   return (
     <Space direction="vertical" style={{ width: '100%', height: '100%' }} size={[0, 48]}>
       <Layout>
-      <div 
-      className={fadeProp.fade}
-      style={{
-        width: '100vw',
-        height: '100vh',
-        position: 'absolute',
-        backgroundColor: '#000',
-        zIndex: '10000',
-        overflow: 'hidden',
-        margin: 'auto',
-        display: showSplash
-      }}>
+      <RequestRecord show={showRequestRecordPopup} closeFunc={() => setShowRequestRecordPopup(false)} />
+      <div
+        className={fadeProp.fade}
+        style={{
+          width: '100vw',
+          height: '100vh',
+          position: 'absolute',
+          backgroundColor: '#000',
+          zIndex: '10000',
+          overflow: 'hidden',
+          margin: 'auto',
+          display: showSplash
+        }}
+      >
         <img style={{ margin:'auto', display: 'flex', marginTop: '20vh'}} src={logo_splash} alt="SplashScreen"></img>
       </div>
         <Sider style={siderStyle} width="300">
@@ -118,7 +122,7 @@ const App: React.FC = () => {
             <Button style={buttonStyleInverted} shape="round" icon={<FileFilled />} size="large">
               Send Request
             </Button>
-            <Button style={borderedButtonStyle} shape="round" icon={<PlusCircleFilled />} size="large">
+            <Button style={borderedButtonStyle} shape="round" icon={<PlusCircleFilled />} size="large" onClick={() => setShowRequestRecordPopup(true)}>
               Request Record
             </Button>
             <Button style={borderlessButtonStyle} shape="round" icon={<HomeFilled />} size="large">
